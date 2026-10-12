@@ -22,13 +22,65 @@ python3 hookscore.py --hook "one line"      # score a single one
 python3 beats.py script.txt --target 30     # timed beat sheet before you shoot
 ```
 
+## MYERAPAIRS
+
+This pack is set up for MYERAPAIRS, a women's footwear shop in Mandsaur
+(@myerapairsofficial). Before anything else, read these three files from the
+`myerapairs/` folder at the root of this skill pack, two folders up from this
+skill's base directory:
+
+- `../../myerapairs/rules.md`
+- `../../myerapairs/voice.md`
+- `../../myerapairs/product-facts.md`
+
+If any of them is missing, stop and ask for it. Do not guess the rules, the
+voice or a product fact. The repo copy of `voice.md` wins over
+`~/.claude/instagram/voice.md`.
+
+Rules for this skill:
+
+- **Hinglish or English, as `voice.md` says.** Hinglish is written in Roman
+  script. Write the line the way the person on camera actually talks.
+- **Real product footage only.** Shoot the actual pair: in hand, on the shelf,
+  on foot. Never generated looks, generated models, AI try-ons or stock clips.
+  Keep the real design, colours and details. Who appears on camera is the
+  owner's call in `voice.md`. Audio is the shop's own or properly licensed,
+  never a competitor's media or music.
+- **Facts only from the facts block.** Price, sizes, colours and material come
+  from the ERP facts block for that design code. A missing fact is written
+  `{{ERP: field}}` and the script is labelled NOT ERP-VERIFIED. No comfort,
+  durability or medical claims, no scarcity or urgency, no delivery promises, no
+  festival names, offer wording or superlatives. So skip #19 The Deadline and
+  #26 The Superlative, and use #23 The Statistic or #25 Someone Else's Result
+  only when the claim is real and the owner has approved it.
+- **End with the DM-the-code ask.** Spoken and on the last card:
+  "DM the code {{ERP: design code}}", or in Hinglish "Design code DM karo" with
+  the code on screen. Write the code exactly as the ERP has it, so the enquiry
+  can be matched. This is the one ask.
+- **The scoring tools are tuned on English.** `hookscore.py` and `beats.py`
+  use English word lists and count money in dollars. On a Hinglish line, treat
+  the score as rough: use it to compare length and timing, and judge the hook
+  by reading it out loud. Do not turn a natural Hinglish line into English just
+  to raise the score.
+- **Do not create or overwrite `voice.md`.** Step 1 below reads the repo copy
+  and proposes edits to it.
+- **Drafts only.** Add `facts:` (verified, or NOT ERP-VERIFIED) and
+  `sign-off: needed` lines to the REEL READY block. A person shoots and posts
+  the Reel by hand after the owner signs off.
+- **"yes" in step 7 only saves the draft.** It is not sign-off. Log it in
+  `log.md` as `DRAFT, not posted, not signed off`, with the date, the design
+  code, the hook formula and the first line, never in the post-receipt format.
+  Only a MANUAL POST RECEIPT (`rules.md`, section 2) records a post, and its
+  `hook formula:` line is what `/ig-audit` groups posts by.
+
+Where this section conflicts with the upstream text below, this section wins.
+
 ## Before you write
 
-1. Read `~/.claude/instagram/voice.md` if it exists. That is the user's voice
-   profile: how they talk on camera, what they never say, who they are talking
-   to. If it does not exist, ask for **three of their own reels**, transcribe or
-   read them, infer the voice, and write the file. A script in the wrong voice
-   is unusable, because they have to say it out loud.
+1. Read `../../myerapairs/voice.md`. If it still has placeholders, ask the
+   owner for **three past captions** he likes and propose edits to that file.
+   Do not create or overwrite a `voice.md`. A script in the wrong voice is
+   unusable, because someone has to say it out loud.
 2. Read `hooks.json` in this folder. 26 formulas, each with a template, a filled
    example, the on-screen version, what it is for, and how it gets ruined.
    Four of them are in there because they kept turning up in real hooks, not
@@ -38,7 +90,9 @@ python3 beats.py script.txt --target 30     # timed beat sheet before you shoot
    thing. Get it before writing.
 4. If `~/.claude/instagram/swipe.md` exists, read it. `/ig-viral` writes that
    file, and it is the user's own evidence about which formulas are working in
-   their niche right now. It beats the defaults in this file.
+   their niche right now. It beats the upstream hook and format advice in this
+   file. It never overrides the MYERAPAIRS rules or the DEFAULTs in
+   `rules.md`.
 
 ## The shape
 
@@ -114,16 +168,18 @@ Write it separately, every time. It is read before it is heard.
 ## Rules that make the difference
 
 - **One idea per Reel.** If the script has two, you have two Reels. Say so.
-- **Numbers over adjectives.** "$4,200" beats "a lot". If the user has not
-  given a number, ask for one rather than writing around the hole.
+- **Numbers over adjectives.** "₹1,499" beats "affordable", but only a number
+  from the ERP facts block. If it is not there, write `{{ERP: field}}` rather
+  than writing around the hole.
 - **Cut the intro.** No greeting, no "in this video", no name, no logo sting.
   The video starts at the sentence you would normally reach at second six.
 - **Change the frame every beat.** A static shot for 8 seconds is where people
   leave, and `beats.py` will flag it.
-- **One ask at the end.** Comment a keyword, save it, or follow. One.
-- **Never fabricate.** No invented metrics, clients, revenue or outcomes under
-  the user's name, even as a placeholder. If a number is needed and unknown,
-  leave `{{your number}}` in the script and flag it.
+- **One ask at the end.** DM the code. One.
+- **Never fabricate.** No invented prices, sizes, stock, materials, reviews,
+  metrics or outcomes under the shop's name, even as a placeholder. If a fact is
+  needed and unknown, leave `{{ERP: field}}` in the script and label it NOT
+  ERP-VERIFIED.
 - **Do not write a script around a trending audio the user cannot use.** If the
   idea needs the user's own voice, say so.
 

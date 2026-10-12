@@ -21,6 +21,62 @@ One tool lives in this folder and it runs:
 python3 swipe.py captured.tsv --out ~/.claude/instagram/swipe.md
 ```
 
+## MYERAPAIRS
+
+This pack is set up for MYERAPAIRS, a women's footwear shop in Mandsaur
+(@myerapairsofficial). Before anything else, read these three files from the
+`myerapairs/` folder at the root of this skill pack, two folders up from this
+skill's base directory:
+
+- `../../myerapairs/rules.md`
+- `../../myerapairs/voice.md`
+- `../../myerapairs/product-facts.md`
+
+If any of them is missing, stop and ask for it. Do not guess the rules, the
+voice or a product fact. The repo copy of `voice.md` wins over
+`~/.claude/instagram/voice.md`. Never create or overwrite a `voice.md`; propose
+edits to `../../myerapairs/voice.md` instead.
+
+Rules for this skill:
+
+- **The account list needs the owner's approval.** Propose 6 to 12 public
+  professional accounts (footwear shops and brands, women's fashion and
+  styling accounts, local pages) and get the owner's yes on the exact list
+  before reading any of them. Adding or swapping an account needs another yes.
+- **Paste-only by default.** The owner or staff paste the hook, the numbers
+  and the caption, or send screenshots. Every run starts this way.
+- **A browser only if it is not the business account.** If a browser is used,
+  it must not be logged in as @myerapairsofficial (`rules.md`, section 5).
+  Before reading anything, check which account the browser is logged in as. If
+  you see @myerapairsofficial (the profile icon, "Your story", the account
+  menu), or you cannot tell, close the tab, do nothing in it and go back to
+  paste. Read at human pace, a dozen reels per account at most, one pass, no
+  loops and nothing left running. If a page asks for a login, stop and go back
+  to paste.
+- **Never scrape.** No crawler, no scraping service, no paid tool, no proxies,
+  no scheduled collection. The YouTube Shorts commands in Step 2 are automated
+  collection: do not run them unless the owner approves them separately.
+- **Copy the formula, never the work.** Learn the hook shape, structure,
+  length and pacing. Never reuse another account's photos, video, music,
+  audio, script or caption, even in part.
+- **No personal data in the swipe file.** Only public professional accounts'
+  handles and their public numbers. No commenters, customers or private
+  individuals, and no names, faces or messages taken from comments. The swipe
+  file stays in `~/.claude/instagram/swipe.md`, never in this repo.
+- **Research data from outside this pack.** Do not use it unless the owner
+  approves that import separately, and only if it covers public data from
+  public professional accounts. Once approved, it goes into `swipe.py` as a
+  TSV like any other capture.
+- **Label the findings.** Every line in Step 4 is OBSERVED, INTERPRETATION or
+  SUGGESTION (`rules.md`, section 10). Views are not sales, and a hook that
+  worked for a big account is a guess for a shop in Mandsaur until it is
+  tested.
+- **Your version uses MYERAPAIRS facts.** In Step 5, product details come from
+  a facts block or a `{{ERP: field}}` placeholder, never from the reel being
+  studied.
+
+Where this section conflicts with the upstream text below, this section wins.
+
 ## The one idea that makes this worth doing
 
 **Raw views are not evidence.** An account with two million followers doing
@@ -37,7 +93,8 @@ works at 2M followers often works because it is at 2M followers.
 
 ## Step 1: pick the accounts
 
-Ask the user for 6 to 12 accounts, or propose them and get approval:
+Ask the user for 6 to 12 accounts, or propose them, and get the owner's
+approval of the list either way:
 
 - **4 direct** - same niche, same offer, slightly ahead.
 - **4 adjacent** - different niche, same audience. This is where formats get
@@ -45,28 +102,31 @@ Ask the user for 6 to 12 accounts, or propose them and get approval:
 - **2 to 4 outsized** - much bigger accounts, for format only, never for
   cadence or tone.
 
-Also ask them to open their own **Saved collection**. It is the fastest and
-most relevant corpus that exists and it is already filtered by their taste.
+Also ask them to look through their own **Saved collection** in the app and
+paste or screenshot what is there. It is the fastest and most relevant corpus
+that exists and it is already filtered by their taste.
 
 ## Step 2: go and look
 
-Use whatever browsing tool this session actually has: an in-app browser, a
-browser extension connected to the user's own Chrome, or a computer-use tool.
-There is no API for this and there does not need to be, because the volume is
-small enough to read.
+Start with what the user pastes. If a browsing tool is used instead (an in-app
+browser, a browser extension, or a computer-use tool), it must not be logged in
+as @myerapairsofficial. Check the account before reading anything, as the
+MYERAPAIRS section above says. There is no API for this and there does not
+need to be, because the volume is small enough to read.
 
 **Rules that are not negotiable:**
 
 - **Never log into Instagram on the user's behalf and never ask for a
-  password.** If a page needs a login, the user is the one who is already
-  logged in. Drive their browser with them present, or ask them to paste.
+  password.** If a page needs a login, stop and ask the user to paste. Never
+  drive a browser that is logged in as @myerapairsofficial.
 - **This is reading, not scraping.** Ten accounts, a dozen reels each, at human
   speed. Automated collection at volume violates Instagram's Terms of Use and
   gets accounts action-blocked. Do not build a crawler, do not use a scraping
   service, and do not loop this in the background.
 - **Copy the formula, never the video.** The hook shape, the structure, the
   length, the pattern of cuts. Not their script, not their voice, not their
-  edit. Attribute every row in the swipe file to the account it came from.
+  music, not their edit. Attribute every row in the swipe file to the account
+  it came from.
 
 **What to capture per reel**, in the creator's own words:
 
@@ -84,8 +144,9 @@ small enough to read.
 Median is the important one. Without it you are back to ranking by follower
 count, which is the thing this skill exists to stop.
 
-**When Instagram will not show you enough:** the same hook grammar runs on
-YouTube Shorts, where view counts and transcripts are public and no login is
+**When Instagram will not show you enough** (for MYERAPAIRS, only with the
+owner's separate approval, see above): the same hook grammar runs on YouTube
+Shorts, where view counts and transcripts are public and no login is
 involved. It is a legitimate second corpus, and the spoken hook is easier to
 get:
 
@@ -174,5 +235,8 @@ YOUR VERSION
 Write the swipe file to `~/.claude/instagram/swipe.md`. `/ig-reel` and
 `/ig-plan` both read it, which is the point: after this runs once, the rest of
 the pack is working from the user's own evidence instead of from defaults.
+The DEFAULTs in `rules.md` (cadence, no festival or offer wording, the call to
+action, the hashtag cap) stay until the owner changes them, whatever the
+evidence shows.
 
 Nothing is posted, followed, liked or messaged by this skill. It reads.

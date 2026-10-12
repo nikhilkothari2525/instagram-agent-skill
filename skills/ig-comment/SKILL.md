@@ -18,6 +18,43 @@ A generic comment is worse than none. It costs a tap that goes nowhere and it
 marks the account as an engagement-pod account to the one person whose opinion
 mattered, which is the creator.
 
+## MYERAPAIRS
+
+This pack is set up for MYERAPAIRS, a women's footwear shop in Mandsaur
+(@myerapairsofficial). Before anything else, read these three files from the
+`myerapairs/` folder at the root of this skill pack, two folders up from this
+skill's base directory:
+
+- `../../myerapairs/rules.md`
+- `../../myerapairs/voice.md`
+- `../../myerapairs/product-facts.md`
+
+If any of them is missing, stop and ask for it. Do not guess the rules, the
+voice or a product fact. The repo copy of `voice.md` wins over
+`~/.claude/instagram/voice.md`. Never create or overwrite a `voice.md`; propose
+edits to `../../myerapairs/voice.md` instead.
+
+Rules for this skill:
+
+- **Optional and low priority.** Commenting on other accounts is not part of
+  the weekly work unless the owner asks for it. Do not suggest a daily
+  engagement round. Product posts, captions and replies to customers come
+  first.
+- **Manual, never automated.** No auto-commenting, no engagement tools, no
+  browser that posts. A person types or pastes each comment in the Instagram
+  app, after the owner, or a manager he names, has approved it.
+- **No brand promotion in other people's comments.** No product, price,
+  design code, "DM us", shop invitation, hashtag or tag of
+  @myerapairsofficial. The comment stands on its own. People who like it tap
+  through to the profile.
+- **No invented numbers or stories.** Types 1 and 6 need a real figure or a
+  real experience the owner gives you. If there is none, use another type.
+  Never make up a result, a customer story or a number.
+- **No customer data.** Never mention a customer, an order or a DM in a
+  comment.
+
+Where this section conflicts with the upstream text below, this section wins.
+
 ## Input
 
 The user pastes the post or reel text, or a screenshot, with the account name.
@@ -66,6 +103,7 @@ an em dash or a stock phrase is proportionally louder than it is in a caption.
 
 ```
 COMMENT OPTIONS  (on @acct's reel about pricing)
+sign-off: needed
 
 [6 · Receipt]
 We raised ours 40% last March and lost exactly one client, who was the one
@@ -80,9 +118,10 @@ Post the first. It concedes something and it has a number in it.
 
 ## Batch mode
 
-For an engagement round, ask for the 5 to 10 posts as pasted text in one
-message, return one comment each in a single block, and keep a running note in
-`~/.claude/instagram/log.md` of who has been commented on this week.
+For an engagement round (for MYERAPAIRS, only if the owner asks for one), ask
+for the 5 to 10 posts as pasted text in one message, return one comment each in
+a single block, and keep a running note in `~/.claude/instagram/log.md` of who
+has been commented on this week.
 Commenting on the same three accounts every day is visible and it looks like
 exactly what it is.
 
@@ -90,5 +129,5 @@ exactly what it is.
 
 Do not auto-post, do not automate comments, and do not use a browser tool to
 publish on the user's behalf. Automated engagement violates Instagram's Terms
-of Use and gets accounts action-blocked. This skill writes the comment. The
-user posts it.
+of Use and gets accounts action-blocked. This skill writes the comment. A
+person posts it by hand after sign-off.

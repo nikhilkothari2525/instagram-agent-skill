@@ -44,7 +44,20 @@ CONCRETE_RE = re.compile(r"\$\s?\d|\b\d[\d,.]*\b|(?<!^)\b[A-Z][a-z]{2,}\b", re.M
 
 ASKS = [
     (re.compile(r"(?i)\bcomment (?:the word |\")?[A-Z0-9]{2,}\b"), "comment a keyword"),
-    (re.compile(r"(?i)\b(?:dm|message) me\b"), "DM me"),
+    # MYERAPAIRS: "DM the code" is the house call to action, in English or in
+    # Hinglish ("Design code DM karo"). It sits above "DM me" so that a caption
+    # with both reports the code ask, and SAME_ASK below counts them once.
+    # English: "DM the code", "DM us the design code". Hinglish: "code DM
+    # karo", with the code itself or a placeholder allowed in between. The
+    # Hinglish form needs the verb, so "error code message" is not an ask.
+    (re.compile(r"(?i)\bdm (?:us )?(?:(?:the|this|design|style) ){0,2}code\b"
+                r"|\bcode (?:ko |[\w-]*\d[\w-]* |\{\{[^}]*\}\} )?(?:dm|message|msg)"
+                r" (?:karo|karein|karen|kijiye|kijie|kare)\b"), "DM the code"),
+    (re.compile(r"(?i)\b(?:dm|message) me\b"
+                r"|\b(?:dm|message|msg) (?:karo|karein|karen|kijiye|kijie|kare)\b"), "DM me"),
+    (re.compile(r"(?i)\bvisit (?:the |our )(?:[a-z]+ )?shop\b"
+                r"|\b(?:shop|dukaan|dukan) (?:pe|par) (?:aao|aaiye|aayiye|aaiyega|aayein|aayen)\b"),
+     "visit the shop"),
     (re.compile(r"(?i)\bsave (?:this|it)\b"), "save this"),
     (re.compile(r"(?i)\bshare (?:this|it)\b"), "share this"),
     (re.compile(r"(?i)\bfollow (?:me|for)\b"), "follow"),
@@ -52,6 +65,22 @@ ASKS = [
     (re.compile(r"(?i)\b(?:swipe|tap) (?:through|left|right|for|to)\b"), "swipe or tap"),
     (re.compile(r"(?i)\btell me\b|\bwhat would you\b|\bwhich one\b"), "answer a question"),
 ]
+
+# Asks that are one request in different words. "DM the code" and "DM me" both
+# ask for a DM, so a caption that says "DM karo" and "DM me" has one ask.
+SAME_ASK = {"DM the code": "DM", "DM me": "DM"}
+
+
+def find_asks(text):
+    """Calls to action in `text`, one entry per distinct ask, in ASKS order."""
+    asks, seen = [], set()
+    for pattern, name in ASKS:
+        key = SAME_ASK.get(name, name)
+        if key not in seen and pattern.search(text):
+            seen.add(key)
+            asks.append(name)
+    return asks
+
 
 FILLER_TAGS = {"#viral", "#fyp", "#explore", "#explorepage", "#foryou", "#foryoupage",
                "#trending", "#instagood", "#love", "#follow", "#like4like", "#reels",
@@ -88,7 +117,7 @@ def analyse(text, cut=TRUNCATE, keywords=None):
     emoji = EMOJI_RE.findall(stripped)
     window = visible_window(stripped, cut)
     truncated = chars > cut
-    asks = [name for pattern, name in ASKS if pattern.search(stripped)]
+    asks = find_asks(stripped)
     filler = [t for t in tags if t.lower() in FILLER_TAGS]
     keywords = [k.strip() for k in (keywords or []) if k.strip()]
 

@@ -27,6 +27,49 @@ vocabulary that only shows up in captions and voiceovers. It is meant to be
 edited. If the user has a word they always use that the lexicon strips, take it
 out of the file.
 
+## MYERAPAIRS
+
+This pack is set up for MYERAPAIRS, a women's footwear shop in Mandsaur
+(@myerapairsofficial). Before anything else, read these three files from the
+`myerapairs/` folder at the root of this skill pack, two folders up from this
+skill's base directory:
+
+- `../../myerapairs/rules.md`
+- `../../myerapairs/voice.md`
+- `../../myerapairs/product-facts.md`
+
+If any of them is missing, stop and ask for it. Do not guess the rules, the
+voice or a product fact. The repo copy of `voice.md` wins over
+`~/.claude/instagram/voice.md`. Never create or overwrite a `voice.md`; propose
+edits to `../../myerapairs/voice.md` instead.
+
+Rules for this skill:
+
+- **Hinglish is not slop.** MYERAPAIRS writes in English or Hinglish in Roman
+  script (`voice.md`). Words like "haan ji", "dekho", "karo" and "pasand aaye
+  toh" are how the brand talks. Never "correct" Hinglish into English, never
+  translate it, and never respell it to look more standard.
+- **The checks are tuned for English.** `detect.py` may score a natural
+  Hinglish draft lower for reasons that are not machine tells. Do not rewrite
+  Hinglish into English to raise the score. Report the score with that note.
+- **Never add facts to raise a score.** SPECIFICITY rewards numbers and names.
+  Never add a number, name, price, size or claim to lift it. Every product
+  fact still comes from the facts block (`product-facts.md`).
+- **Re-check the facts after every run.** `humanize.py` replaces characters
+  and words: an en dash in a size range becomes a hyphen, an em dash becomes a
+  comma, special spaces and quotes change, and a lexicon word inside a product
+  name (such as "Seamless" or "Iconic") gets swapped. After humanizing,
+  compare the price (rupee sign and commas), the sizes, the design code and
+  the product name with the facts block, character for character, and put
+  back anything that changed.
+- **A MYERAPAIRS block in `slop.json`, later.** The owner may add Hinglish
+  stock phrases to `slop.json` as a MYERAPAIRS block. Until then the lexicon
+  is English only, and it never holds customer data.
+- **Drafts stay out of the repo.** Run the tools on files in
+  `~/.claude/instagram/`, since a reply or DM draft can hold customer data.
+
+Where this section conflicts with the upstream text below, this section wins.
+
 ## Why this matters more on Instagram than it looks
 
 Captions are short and scripts get said out loud. A written-sounding line in a
@@ -108,4 +151,6 @@ do not tell a user their text is undetectable.
 4. If the verdict is not PASS, fix the weakest check named in the output and go
    again. Two rounds is normal. Five means the draft was written by formula,
    and the fix is a different draft, not more passes.
-5. Show the user the cleaned text and the score. Never the score alone.
+5. Re-check the price, sizes, design code and product name against the facts
+   block (see MYERAPAIRS above). Then show the user the cleaned text and the
+   score. Never the score alone.
