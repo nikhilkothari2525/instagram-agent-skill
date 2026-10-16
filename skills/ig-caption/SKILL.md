@@ -21,6 +21,59 @@ It prints the caption the way the feed prints it: the first 125 characters in a
 box, everything else behind the tap. Read that box before you read anything
 else you wrote.
 
+## MYERAPAIRS
+
+This pack is set up for MYERAPAIRS, a women's footwear shop in Mandsaur
+(@myerapairsofficial). Before anything else, read these three files from the
+`myerapairs/` folder at the root of this skill pack, two folders up from this
+skill's base directory:
+
+- `../../myerapairs/rules.md`
+- `../../myerapairs/voice.md`
+- `../../myerapairs/product-facts.md`
+
+If any of them is missing, stop and ask for it. Do not guess the rules, the
+voice or a product fact. The repo copy of `voice.md` wins over
+`~/.claude/instagram/voice.md`. Never create or overwrite a `voice.md`; propose
+edits to `../../myerapairs/voice.md` instead. Language (Hinglish or English)
+and emoji level follow `voice.md`.
+
+Rules for this skill:
+
+- **Price in rupees, from the facts block.** The bill price including GST,
+  written like `₹1,499`. Never MRP as the selling price.
+- **Available sizes only, no counts.** List the sizes the ERP marks available.
+  Never "only 2 left" or any other number of pairs.
+- **The design code is in the caption**, written exactly as the ERP has it.
+- **The ask is "DM the code {{ERP: design code}}"** (Hinglish: "Design code DM
+  karo"). Never "comment a keyword": comments are not handled yet. For Job A,
+  put the ask and the code in line 1 so they survive the cut.
+- **Facts only from the ERP facts block.** Material only if the ERP records it.
+  No comfort, durability or medical claims, no scarcity or urgency, no delivery
+  promises, no reviews unless real and approved. No festival names and no sale,
+  discount or offer wording until the owner decides (DEFAULT). A missing fact is
+  written `{{ERP: field}}` and the caption is labelled NOT ERP-VERIFIED.
+- **At most 5 hashtags (DEFAULT)**, a mix of brand (`#myerapairs`), product type
+  (such as `#blockheels`) and Mandsaur or local (such as `#mandsaur`). Only tags
+  that are true for this product. The five-tag cap described below is the
+  upstream author's claim and has not been checked for this account.
+- **Search phrases.** Suggest `--keywords` phrases a shopper would type, such as
+  "women footwear Mandsaur", "block heels" or "bridal juttis", only when they
+  are true for this product, and work them into normal sentences:
+
+  ```bash
+  python3 caption.py draft.txt --keywords "block heels,women footwear Mandsaur"
+  ```
+
+- **`caption.py` is advisory.** It checks shape, not facts or these rules. It
+  reads "DM the code" and "Design code DM karo" as the call to action, and
+  counts them together with "DM me" as one ask. If it reports no call to
+  action, the ask is missing or worded differently: fix the caption.
+- **Drafts only.** A person pastes the caption into Instagram by hand after the
+  owner, or a manager he names, signs off.
+
+Where this section conflicts with the upstream text below, this section wins.
+
 ## First, decide which job this caption has
 
 This is the decision that ruins captions when it is skipped.
@@ -46,7 +99,7 @@ Line 1      125 characters of visible space. Job A: the ask, plainly.
             character.
 Body        short paragraphs, one line of white space between each. Two to six
             of them. This is where the search terms live.
-The ask     one. Comment a keyword, save it, or DM. One.
+The ask     one. DM the code {{ERP: design code}}. One.
 Hashtags    up to five, on their own line at the bottom, or none.
 ```
 
@@ -86,9 +139,10 @@ python3 caption.py draft.txt --keywords "client proposals,agency pricing"
 - **No link in the caption.** Captions are not clickable. A URL in the body is
   dead text that says "I do not use this platform". Bio or DM.
 - **One ask.** Two asks is the same as none. `caption.py` counts them.
-- **The keyword ask needs a keyword people can type.** One word, no spaces, no
-  emoji, and say it out loud in the video too. `Comment CONTRACT` works.
-  `Comment "the contract guide"` does not.
+- **The DM ask needs a code people can type.** The design code exactly as the
+  ERP has it, no emoji, and say it out loud in the video too.
+  `DM the code {{ERP: design code}}` works. `DM us for details` does not,
+  because the enquiry cannot be matched to a product.
 - **Write the first comment separately** if there is a link. Say so in the
   receipt.
 - **Emoji as punctuation, not decoration.** The linter flags anything over
@@ -110,10 +164,12 @@ python3 caption.py draft.txt --keywords "client proposals,agency pricing"
 CAPTION READY
 job:        A - the reel carries the hook
 visible:    118 of 125 characters used before the cut
-ask:        one, comment CONTRACT
+ask:        one, DM the code {{ERP: design code}}
 hashtags:   3
-search:     "client proposals" in line 3, "agency pricing" in line 5
-linter:     READY
+search:     "block heels" in line 3, "women footwear Mandsaur" in line 5
+facts:      all from the ERP facts block (or NOT ERP-VERIFIED)
+linter:     READY, or each WARN named and decided
+sign-off:   needed
 ```
 
-Nothing is posted. The user pastes it.
+Nothing is posted. A person pastes it by hand after the owner signs off.

@@ -15,6 +15,59 @@ storefront people browse. It is a **decision screen**, arrived at from one
 reel, and it gets about three seconds to answer one question: is there more of
 that here, and is it for me.
 
+## MYERAPAIRS
+
+This pack is set up for MYERAPAIRS, a women's footwear shop in Mandsaur
+(@myerapairsofficial). Before anything else, read these three files from the
+`myerapairs/` folder at the root of this skill pack, two folders up from this
+skill's base directory:
+
+- `../../myerapairs/rules.md`
+- `../../myerapairs/voice.md`
+- `../../myerapairs/product-facts.md`
+
+If any of them is missing, stop and ask for it. Do not guess the rules, the
+voice or a product fact. The repo copy of `voice.md` wins over
+`~/.claude/instagram/voice.md`. Never create or overwrite a `voice.md`; propose
+edits to `../../myerapairs/voice.md` instead.
+
+Rules for this skill:
+
+- **Public business terms only once the owner confirms them.** Pickup at the
+  Mandsaur shop, payment methods, and return or exchange terms go on the
+  profile only in the exact wording the owner has approved. Until then write
+  `{{OWNER: approved pickup terms}}`, `{{OWNER: approved payment methods}}` or
+  `{{OWNER: approved return and exchange terms}}`. A rewrite with any of these
+  left in cannot be signed off.
+- **No delivery-time promise** anywhere on the profile: not in the name field,
+  the bio, a highlight or a pinned post.
+- **Highlights named for a footwear buyer's questions:** Sizes, How to order,
+  Pickup, Returns. The Pickup and Returns highlights wait until their terms
+  are approved. Add others, such as New arrivals, only if the owner wants
+  them. No reviews or "Results" highlight unless every item in it is real,
+  consented to and approved by the owner.
+- **Name field.** The brand plus words people search, within 30 characters,
+  for example `MYERAPAIRS | Women's Footwear`. MYERAPAIRS is always in
+  capitals.
+- **Bio.** Who it is for, what the shop sells, that it is in Mandsaur, and
+  "DM the code" as the ask. No prices, sizes, stock, comfort claims, hype
+  words, offer wording or festival names (`voice.md`, "Off limits").
+- **The link** goes only where the owner says in `voice.md`. Until then, leave
+  it as `{{OWNER: link-in-bio target}}`.
+- **Proof is real or left out.** No invented customer counts, ratings or
+  reviews in the bio or the pinned posts.
+- **The pinned three for a shop:** a clear product post with its design code,
+  how to order (DM the code), and the shop itself. No faces until the owner
+  decides who appears on camera (`voice.md`).
+- **Photo.** For a shop, a clear logo can score full marks. The face rule in
+  `rubric.json` is for personal accounts.
+- **No contact details in this repo.** A person fills in the phone number,
+  email and address in the app. They are never written into this repo.
+- **Drafts only.** A person edits each field in the app after the owner, or a
+  manager he names, signs off.
+
+Where this section conflicts with the upstream text below, this section wins.
+
 ## Input
 
 Ask the user to paste or screenshot: the name field, the handle, the bio, what
@@ -54,15 +107,17 @@ put a name in it and nothing else. Format that works:
 
 **2. Bio line one.** Who this is for and what changes. Not a job title, not
 adjectives, not a pipe-separated list of identities. The rest of the 150
-characters carries one piece of proof or one plain offer.
+characters carries one piece of real proof or one plain line about what you
+sell.
 
 **3. The pinned three.** Three slots, three different jobs: the best proof, the
 clearest explanation of the offer, the best introduction to the person. This is
 the highest-leverage fix on the whole profile and it takes four taps. An
 unpinned grid shows whatever was posted last, which is a coin flip.
 
-**4. Highlights.** Four to six, named for the questions a buyer asks: Pricing,
-Results, How it works, About. Not "Random". Delete the rest.
+**4. Highlights.** Four to six, named for the questions a buyer asks. For
+MYERAPAIRS: Sizes, How to order, Pickup, Returns (see MYERAPAIRS above). Not
+"Random". Remove the rest only with the owner's yes.
 
 **5. The link.** One destination that matches what the bio just promised. Five
 are allowed; two is already a menu and a menu converts worse than a door.
@@ -79,4 +134,6 @@ the rewrite reaches 84 and not 98, say 84, and say what the rest needs, which
 is usually a grid, a story habit and a pinned post that does not exist yet.
 None of that is a rewrite.
 
-Nothing is saved to Instagram by this skill. The user edits each field.
+Nothing is saved to Instagram by this skill. The user edits each field. For
+MYERAPAIRS, end the rewrites with `sign-off: needed`: a person changes the
+profile by hand after the owner signs off.

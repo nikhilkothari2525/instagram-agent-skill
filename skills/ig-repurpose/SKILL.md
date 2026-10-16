@@ -13,6 +13,45 @@ description: >-
 One good long asset contains four to six posts. Most people extract one and
 throw the rest away.
 
+## MYERAPAIRS
+
+This pack is set up for MYERAPAIRS, a women's footwear shop in Mandsaur
+(@myerapairsofficial). Before anything else, read these three files from the
+`myerapairs/` folder at the root of this skill pack, two folders up from this
+skill's base directory:
+
+- `../../myerapairs/rules.md`
+- `../../myerapairs/voice.md`
+- `../../myerapairs/product-facts.md`
+
+If any of them is missing, stop and ask for it. Do not guess the rules, the
+voice or a product fact. The repo copy of `voice.md` wins over
+`~/.claude/instagram/voice.md`. Never create or overwrite a `voice.md`; propose
+edits to `../../myerapairs/voice.md` instead.
+
+Rules for this skill:
+
+- **Low priority.** MYERAPAIRS has few long assets. Use this skill only when
+  the owner hands one over, such as a long shop video or a recorded live.
+- **Owned footage only.** The source must be shot by MYERAPAIRS, or used with
+  written permission or a licence (`rules.md`, section 9). Never repurpose
+  another account's video, reel, podcast, music or article, even with credit.
+  If you cannot tell who owns the source, ask before extracting anything.
+- **Facts rule.** Every product fact in a repurposed post comes from a filled
+  facts block for that design code (`product-facts.md`), not from what was
+  said or shown in the source. A price or size in an old video may be out of
+  date. Missing facts are written `{{ERP: field}}` and the draft is labelled
+  NOT ERP-VERIFIED. Claims in the source that `product-facts.md` does not
+  allow (comfort, durability, offers, festival names) do not carry over.
+- **Every product post shows its design code** and asks for "DM the code".
+- **People on camera** follow `voice.md`, and appear only with their consent.
+  Cut customers out unless the owner has their permission.
+- **Fit the DEFAULT cadence** (3 feed posts, 5 stories, 1 Reel a week). If one
+  source yields more, spread it over more than one week.
+- **Drafts only.** Each post is signed off and posted by hand.
+
+Where this section conflicts with the upstream text below, this section wins.
+
 ## Input
 
 A transcript, an article, a newsletter, a script, a call summary, a livestream.

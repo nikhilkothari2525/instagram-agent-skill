@@ -3,3 +3,39 @@ __pycache__/
 *.pyc
 .venv/
 *.tmp
+
+# MYERAPAIRS: this repo is public. Keep working files, customer data,
+# media and secrets out of git. Working files belong in ~/.claude/instagram/.
+
+# Working folders and exports
+workspace/
+exports/
+screenshots/
+channel.json
+*.json3
+.claude/instagram/
+.claude/settings.local.json
+
+# Data files (may hold customer details or stock figures)
+*.[cC][sS][vV]
+*.[tT][sS][vV]
+*.[xX][lL][sS][xX]
+*.[xX][lL][sS]
+
+# Photos and video (owned media is kept outside the repo).
+# Bracket patterns also catch uppercase extensions from phones, like .JPG.
+*.[pP][nN][gG]
+*.[jJ][pP][gG]
+*.[jJ][pP][eE][gG]
+*.[wW][eE][bB][pP]
+*.[hH][eE][iI][cC]
+*.[gG][iI][fF]
+*.[mM][pP]4
+*.[mM][oO][vV]
+*.[pP][dD][fF]
+
+# Secrets
+.env
+.env.*
+*.key
+*.pem

@@ -1,3 +1,36 @@
+> **This is the MYERAPAIRS fork.**
+>
+> It is a fork of Jake Schincariol's
+> [instagram-agent-skill](https://github.com/Jakeschincariol/instagram-agent-skill),
+> adapted for MYERAPAIRS, a women's footwear shop in Mandsaur, India, on
+> Instagram as @myerapairsofficial. The thirteen skills are the upstream ones,
+> with MYERAPAIRS sections added to them.
+>
+> - **Drafts only.** Nothing in this fork posts, sends, replies, follows, likes
+>   or comments. Every skill ends with a draft that a person posts by hand
+>   after the owner, or a manager the owner has named, signs off.
+> - **Brand files and rules** are in [`myerapairs/`](myerapairs/):
+>   [`rules.md`](myerapairs/rules.md) (read it first),
+>   [`voice.md`](myerapairs/voice.md) and
+>   [`product-facts.md`](myerapairs/product-facts.md). Where the upstream text
+>   below says something different, `myerapairs/rules.md` wins. For example,
+>   this fork uses no comment-keyword DM automations. Posts ask people to DM
+>   the design code instead.
+> - **Research with `/ig-viral` is paste-only**, or uses a browser that is not
+>   logged in as @myerapairsofficial. The upstream "driving your own browser"
+>   below does not apply.
+> - **Product facts** (prices, sizes, colours, stock) come from the shop's ERP,
+>   never from this repo. A fact that has not been checked there is left as a
+>   placeholder.
+> - **The plan** is in [`docs/myerapairs-plan.md`](docs/myerapairs-plan.md):
+>   what this repo does, what stays in the ERP, and the phases.
+> - **This repo is public.** No customer data, credentials or business
+>   internals go in it. Working files stay in `~/.claude/instagram/`, outside
+>   git.
+>
+> Everything below this box is the upstream README. The install commands point
+> at this fork.
+
 # The Instagram agent skill
 
 Thirteen Claude skills that run an Instagram account. Free, MIT, no signup, no
@@ -22,22 +55,24 @@ see it.
 Paste this into Claude:
 
 ```
-https://github.com/Jakeschincariol/instagram-agent-skill
+https://github.com/nikhilkothari2525/instagram-agent-skill
 
-Install this skill, then confirm /ig-reel works.
+Install this skill pack, keep its myerapairs/ folder next to the skills folder,
+then confirm /ig-reel works.
 ```
 
 Or do it yourself, in Claude Code:
 
 ```bash
-git clone https://github.com/Jakeschincariol/instagram-agent-skill.git
+git clone https://github.com/nikhilkothari2525/instagram-agent-skill.git
 cp -r instagram-agent-skill/skills/ig-* ~/.claude/skills/
+cp -r instagram-agent-skill/myerapairs ~/.claude/
 ```
 
 Or as a plugin:
 
 ```
-/plugin marketplace add Jakeschincariol/instagram-agent-skill
+/plugin marketplace add nikhilkothari2525/instagram-agent-skill
 /plugin install instagram-agent
 ```
 
@@ -46,11 +81,31 @@ Project-local instead of global: copy the same folders into your repo's
 of a chat and it runs as a mode. You lose the five Python tools, which is most
 of the point of `/ig-reel` and `/ig-human`, but the rest works.
 
+**MYERAPAIRS: keep `myerapairs/` next to the skills folder.** Each skill looks
+for the brand files at `../../myerapairs/`, two folders up from its own folder.
+The plugin install keeps the whole repo together, so that works as it is. If
+you copy only `skills/ig-*`, the links to the brand files break and the skills
+stop and ask for them. So copy `myerapairs/` too, as a sibling of the skills
+folder:
+
+| skills go in | brand files go in |
+| --- | --- |
+| `~/.claude/skills/` | `~/.claude/myerapairs/` |
+| your repo's `.claude/skills/` | your repo's `.claude/myerapairs/` |
+
+Pasting a single `SKILL.md` into a chat instead? Paste the three files from
+`myerapairs/` with it.
+
 Then spend ten minutes on `templates/voice.md`. Copy it to
 `~/.claude/instagram/voice.md` and fill it in, or send Claude three of your own
 reels and say "write my voice.md from these". Every skill reads that file. It
 matters more here than on other platforms, because you have to say the words
 out loud.
+
+**MYERAPAIRS: skip that step.** The brand voice is already in
+`myerapairs/voice.md`, and that copy wins over `~/.claude/instagram/voice.md`.
+To change the voice, propose an edit to `myerapairs/voice.md` for the owner to
+approve. Do not write a new `voice.md`.
 
 ## The thirteen
 

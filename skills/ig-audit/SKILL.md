@@ -14,6 +14,71 @@ The only honest source of what works for an account is that account. Every
 rule in every Instagram guide, including the ones in this pack, is a prior.
 The user's own last 30 posts are the evidence.
 
+## MYERAPAIRS
+
+This pack is set up for MYERAPAIRS, a women's footwear shop in Mandsaur
+(@myerapairsofficial). Before anything else, read these three files from the
+`myerapairs/` folder at the root of this skill pack, two folders up from this
+skill's base directory:
+
+- `../../myerapairs/rules.md`
+- `../../myerapairs/voice.md`
+- `../../myerapairs/product-facts.md`
+
+If any of them is missing, stop and ask for it. Do not guess the rules, the
+voice or a product fact. The repo copy of `voice.md` wins over
+`~/.claude/instagram/voice.md`. Never create or overwrite a `voice.md`; propose
+edits to `../../myerapairs/voice.md` instead.
+
+Rules for this skill:
+
+- **Two inputs, both from a person.** Screenshots from Instagram's Professional
+  Dashboard (account and per-post insights), taken by the owner or staff in
+  the app, and sales or order numbers the owner pastes from the ERP for the
+  same dates, such as orders per design code per week. Totals only: no
+  customer names, numbers, addresses or order details. This skill has no
+  connection to Instagram or the ERP and reads neither directly.
+- **Likes and views are not sales.** A sale is an order the ERP records.
+  Views, likes, comments, saves, shares, sends and follows are attention.
+  Report them apart from the ERP numbers, and never write "this post sold" or
+  "drove sales" from engagement alone.
+- **Match posts to design codes.** Use the manual post receipts in
+  `~/.claude/instagram/log.md` to find each post's design code, then put the
+  ERP numbers for that code beside it. A post with no receipt cannot be
+  matched. Say so rather than guessing.
+- **Label every finding.** OBSERVED is what the screenshots or the ERP numbers
+  show, with source and date. INTERPRETATION is what it might mean, and how
+  sure you are. SUGGESTION is what to try next. The labels go in the output
+  (`rules.md`, section 10).
+- **Correlation is not proof.** Orders for a design code rising in the week it
+  was posted is a correlation. Walk-ins, word of mouth, the time of year and
+  what was in stock move orders too. Write "went up in the same week", not
+  "the post caused it". A handful of posts means low confidence. Say that.
+- **Never invent a number.** If a metric is not in the screenshots or the
+  pasted numbers, write a placeholder and leave that post out of the ranking
+  for that metric. Do not estimate hold at 3 seconds from views.
+- **Keep it out of the repo.** Screenshots, ERP numbers and the audit stay in
+  this chat or in `~/.claude/instagram/`.
+
+For the WHAT THE DATA SAYS part of the output, use this shape, and add a SALES
+block when the owner has pasted ERP numbers:
+
+```
+WHAT THE DATA SAYS
+1. OBSERVED        Hold at 3s: top five average {{x}}%, bottom five {{y}}%.
+                   Professional Dashboard, read {{date}}.
+   INTERPRETATION  The opening seconds look like the main difference.
+                   {{n}} posts, so {{low / medium / high}} confidence.
+   SUGGESTION      Test two openings on the next product Reel.
+
+SALES  (ERP numbers pasted by the owner, {{dates}})
+   OBSERVED        {{design code}}: {{n}} orders the week it was posted,
+                   {{n}} the week before.
+   INTERPRETATION  Went up in the same week. One post. Not proof.
+```
+
+Where this section conflicts with the upstream text below, this section wins.
+
 ## Input
 
 Ask for whichever the user has:
@@ -99,6 +164,11 @@ STOP: listicles.
 DO MORE: the ones with a cost you paid and a number attached.
 ```
 
+For MYERAPAIRS, write WHAT THE DATA SAYS and SALES in the labelled shape from
+the MYERAPAIRS section, and turn STOP and DO MORE into SUGGESTION lines.
+
 Then hand the conclusions to `/ig-plan` so next week is built on the user's own
 evidence rather than on defaults, and to `/ig-viral` so the swipe file gets
-filtered to the formulas that work for this account specifically.
+filtered to the formulas that work for this account specifically. The DEFAULTs
+in `rules.md` (cadence, no festival or offer wording, the call to action, the
+hashtag cap) stay until the owner changes them, whatever the evidence shows.
